@@ -1,0 +1,92 @@
+# PPO Training Configuration
+# Centralized management of all training parameters
+
+# =============================================================================
+# API Configuration
+# =============================================================================
+api:
+  casca_url: "http://localhost:8080/v0"  # Service API URL
+  emma_url: "http://localhost:8081"       # EMMA API URL (backup)
+  timeout: 10                             # API request timeout (seconds)
+
+# =============================================================================
+# Environment Configuration
+# =============================================================================
+environment:
+  wait_seconds: 180                       # Wait time after each action (seconds) = 3 minutes
+                                          # Based on experiments: avg response time ~182s, 3min allows observing trends
+  max_episode_steps: 48                   # Steps per episode (48 * 180s = 144min = 2.4 hours)
+
+  # SLO metrics
+  slos:
+    - "meanFPS"
+    - "meanPower"
+
+  # Configurable parameters
+  config_params:
+    - "EncodingThreadCount"
+
+# =============================================================================
+# SLO Target Ranges
+# =============================================================================
+slo_targets:
+  fps:
+    min: 20                               # FPS lower bound (updated: from 24 to 20)
+    max: 31                               # FPS upper bound
+
+# =============================================================================
+# Action Space Configuration
+# =============================================================================
+action_space:
+  encoding_thread_count:
+    min: 0                                # Minimum value (updated: from -1 to 0)
+    max: 16                               # Maximum value (updated: from 8 to 16)
+
+# =============================================================================
+# PPO Hyperparameters
+# =============================================================================
+ppo:
+  learning_rate: 0.0003                   # 3e-4
+  n_steps: 48                             # Steps to collect per update (1 episode)
+  batch_size: 12                          # Batch size (divisor of n_steps)
+  n_epochs: 10                            # Epochs per update
+  gamma: 0.99                             # Discount factor
+  gae_lambda: 0.95                        # GAE parameter
+  clip_range: 0.2                         # PPO clipping range
+  ent_coef: 0.02                          # Entropy coefficient (increased for exploration, non-convex problem)
+  vf_coef: 0.5                            # Value function coefficient
+  max_grad_norm: 0.5                      # Gradient clipping
+
+# =============================================================================
+# Training Configuration
+# =============================================================================
+training:
+  total_timesteps: 480                    # Total training steps (10 episodes x 48 steps)
+                                          # ~24 hours training time (480 x 180 seconds)
+  checkpoint_freq: 48                     # Checkpoint save frequency (save each episode)
+  save_dir: "./models"                    # Model save directory
+  log_dir: "./logs"                       # Log directory
+  tensorboard_dir: "./tensorboard_logs"   # TensorBoard log directory
+
+# =============================================================================
+# Carbon Intensity Configuration
+# =============================================================================
+carbon:
+  csv_file: "carbon_intensity_austria_2024_hourly.csv"
+  default_value: 300.0                    # Default carbon intensity (gCO2eq/kWh)
+
+# =============================================================================
+# Robustness Configuration (Error Handling)
+# =============================================================================
+robustness:
+  max_retries: 3                          # Max retry attempts for API failures
+  retry_delay: 10.0                       # Retry interval (seconds)
+
+# =============================================================================
+# Causality Test Configuration
+# =============================================================================
+causality_test:
+  sample_interval: 25                     # Sampling interval (seconds)
+  phase_duration: 600                     # Duration per phase (seconds) = 10 minutes
+  action_low: 2                           # Low action value (for testing)
+  action_high: 16                         # High action value (for testing)

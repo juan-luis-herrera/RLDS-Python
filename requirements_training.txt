@@ -1,0 +1,17 @@
+# Core Training Dependencies
+stable-baselines3>=2.3.0
+stable-baselines3[extra]
+gymnasium>=0.29.1
+torch>=2.1.0
+numpy>=1.24.0
+requests>=2.31.0
+pyyaml>=6.0.1
+
+# Logging and Visualization
+tensorboard>=2.15.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+
+# Optional: Model Export (for deployment)
+# onnx>=1.15.0
+# onnxruntime>=1.16.0

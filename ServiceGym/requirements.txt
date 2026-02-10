@@ -1,0 +1,22 @@
+# ===== 基础依赖（原有） =====
+gymnasium
+requests
+pandas
+numpy
+
+# ===== PPO 训练依赖（新增） =====
+# Stable-Baselines3: PPO 算法实现
+stable-baselines3[extra]>=2.0.0
+
+# Tensorboard: 训练可视化
+tensorboard>=2.11.0
+
+# PyTorch: Stable-Baselines3 的后端（自动安装）
+# torch>=1.13.0
+
+# ===== 可选依赖 =====
+# 如果需要视频录制功能
+# moviepy>=1.0.0
+
+# 如果需要更好的进度条
+# tqdm>=4.60.0
