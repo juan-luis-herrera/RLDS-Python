@@ -3,6 +3,7 @@
 
 [![DOI](https://zenodo.org/badge/1154611100.svg)](https://doi.org/10.5281/zenodo.18622320)
 
+> **Acknowledgement**: The training logic and code implementation in this repository were developed with the assistance of **[Claude 3 Opus](https://www.anthropic.com)**.
 
 ## Overview
 
