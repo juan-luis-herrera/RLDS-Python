@@ -1,5 +1,9 @@
 # PPO Training Implementation for ServiceGym
 
+
+[![DOI](https://zenodo.org/badge/1154611100.svg)](https://doi.org/10.5281/zenodo.18622320)
+
+
 ## Overview
 
 This repository contains a **Proximal Policy Optimization (PPO)** implementation designed to interact with the ServiceGym platform. The agent learns to optimize `EncodingThreadCount` to maintain FPS within SLO bounds while minimizing carbon footprint.
